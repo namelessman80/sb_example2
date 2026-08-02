@@ -1,0 +1,38 @@
+{
+    "name": "mh_admin_server",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "db:push": "drizzle-kit push",
+        "db:setup": "npm run db:push && npm run load-data",
+        "db:clear": "tsx scripts/clear-data.ts",
+        "db:reset": "tsx scripts/drop-tables.ts && npm run db:push && npm run load-data",
+        "db:studio": "drizzle-kit studio",
+        "load-data": "tsx scripts/load-data.ts"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.5",
+        "csv-parse": "^6.1.0",
+        "dotenv": "^17.2.3",
+        "drizzle-orm": "^0.45.1",
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.3",
+        "multer": "^2.0.2",
+        "postgres": "^3.4.5"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/multer": "^2.0.0",
+        "@types/node": "^22.10.2",
+        "drizzle-kit": "^0.31.8",
+        "tsx": "^4.21.0",
+        "typescript": "^5.7.2"
+    }
+}

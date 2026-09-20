@@ -1,0 +1,140 @@
+[
+    {
+        "name": "Stress",
+        "icon": "😓",
+        "displayOrder": 1,
+        "isFallback": false,
+        "keywordsEn": [
+            "stress",
+            "stressed",
+            "overwhelmed",
+            "pressure",
+            "burnout",
+            "tense",
+            "deadline",
+            "workload",
+            "exhausted"
+        ],
+        "keywordsZh": ["压力", "压力大", "紧张", "很累", "累死了", "崩溃", "承受不住"],
+        "relatesTo": [
+            "Heavy workload or deadlines",
+            "Feeling under pressure or overwhelmed",
+            "Burnout or mental exhaustion"
+        ],
+        "supportType": "School counselor, peer support group, or stress-management resources (relaxation tips, time-management help)",
+        "seekProfessionalWhen": "Stress keeps affecting your sleep, school or work, relationships, or daily routine—and self-care ideas do not seem to help after a while.",
+        "gentleSuggestion": "Try a short break: stretch, drink water, or take a few slow breaths. Write down one small next step so tasks feel less overwhelming."
+    },
+    {
+        "name": "Sleep-related concern",
+        "icon": "😴",
+        "displayOrder": 2,
+        "isFallback": false,
+        "keywordsEn": [
+            "sleep",
+            "insomnia",
+            "tired",
+            "fatigue",
+            "nightmare",
+            "restless",
+            "can't sleep",
+            "cannot sleep",
+            "awake",
+            "drowsy"
+        ],
+        "keywordsZh": ["睡不着", "失眠", "睡不好", "入睡困难", "没法睡", "熬夜", "噩梦"],
+        "relatesTo": [
+            "Trouble falling or staying asleep",
+            "Feeling tired even after resting",
+            "Nightmares or restless nights"
+        ],
+        "supportType": "Sleep hygiene guides, school nurse or wellness office, or a brief check-in with a counselor about sleep habits",
+        "seekProfessionalWhen": "Sleep problems last several weeks, you feel exhausted most days, or poor sleep makes school, work, or mood much harder to manage.",
+        "gentleSuggestion": "Try a calm wind-down (dim lights, no screens for 30 minutes, same bedtime). Small routine changes can help over time."
+    },
+    {
+        "name": "Low mood",
+        "icon": "🌧️",
+        "displayOrder": 3,
+        "isFallback": false,
+        "keywordsEn": [
+            "sad",
+            "depressed",
+            "hopeless",
+            "empty",
+            "lonely",
+            "down",
+            "low",
+            "unmotivated",
+            "crying",
+            "worthless",
+            "gloomy"
+        ],
+        "keywordsZh": [
+            "难过",
+            "情绪低落",
+            "伤心",
+            "郁闷",
+            "沮丧",
+            "低落",
+            "不开心",
+            "绝望",
+            "孤独",
+            "没动力",
+            "想哭",
+            "空虚"
+        ],
+        "relatesTo": [
+            "Feeling sad, empty, or down for a while",
+            "Loneliness or pulling away from others",
+            "Low motivation or loss of interest in usual activities"
+        ],
+        "supportType": "Talking with someone you trust, peer support, or a school counselor for general emotional support",
+        "seekProfessionalWhen": "Low mood lasts more than about two weeks, you often feel hopeless, or you stop enjoying things that used to matter to you.",
+        "gentleSuggestion": "Send a short message to someone you trust. A small walk outside or one activity you used to enjoy may help a little."
+    },
+    {
+        "name": "Anxiety/Panic",
+        "icon": "💓",
+        "displayOrder": 4,
+        "isFallback": false,
+        "keywordsEn": [
+            "anxious",
+            "anxiety",
+            "panic",
+            "worried",
+            "worry",
+            "fear",
+            "nervous",
+            "racing heart",
+            "breathless",
+            "dread",
+            "on edge"
+        ],
+        "keywordsZh": ["焦虑", "恐慌", "担心", "害怕", "不安", "心慌", "惊恐", "紧张不安"],
+        "relatesTo": [
+            "Frequent worry or racing thoughts",
+            "Physical signs of anxiety (tight chest, restlessness)",
+            "Panic-like episodes or feeling constantly on edge"
+        ],
+        "supportType": "Grounding and breathing exercises, school counselor, or mental health counseling for coping skills",
+        "seekProfessionalWhen": "Worry or panic happens often, feels very intense, or gets in the way of school, sleep, friendships, or leaving home.",
+        "gentleSuggestion": "Ground yourself: name 5 things you see, 4 you feel, 3 you hear. Slow breathing (inhale 4 counts, exhale 6) can ease body tension."
+    },
+    {
+        "name": "General concern",
+        "icon": "💬",
+        "displayOrder": 5,
+        "isFallback": true,
+        "keywordsEn": [],
+        "keywordsZh": [],
+        "relatesTo": [
+            "Mixed or hard-to-name feelings",
+            "General worry about your wellbeing",
+            "Not sure which label fits—but something feels off"
+        ],
+        "supportType": "Trusted adult (family, teacher, mentor), general wellness resources, or a counselor for an open conversation",
+        "seekProfessionalWhen": "Feelings stay with you, grow stronger, or feel too heavy to handle alone—even if you are not sure what to call them.",
+        "gentleSuggestion": "Your feelings are valid. Journaling for a few minutes may help you notice patterns. Talking with someone you trust is a good next step."
+    }
+]

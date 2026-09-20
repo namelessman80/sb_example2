@@ -35,6 +35,8 @@ const EMPTY_FORM = {
     phone: "",
     website: "",
     verified: "",
+    latitude: "",
+    longitude: "",
 };
 
 export function HospitalDialog({
@@ -58,6 +60,8 @@ export function HospitalDialog({
                 phone: hospital.phone ?? "",
                 website: hospital.website ?? "",
                 verified: hospital.verified ?? "",
+                latitude: hospital.latitude != null ? String(hospital.latitude) : "",
+                longitude: hospital.longitude != null ? String(hospital.longitude) : "",
             });
         } else {
             setForm(EMPTY_FORM);
@@ -68,6 +72,11 @@ export function HospitalDialog({
         event.preventDefault();
         setIsSubmitting(true);
         try {
+            // Leaving latitude/longitude blank omits them from the request so the
+            // server auto-geocodes from the address instead of storing "no coordinates".
+            const parsedLat = form.latitude.trim() ? Number(form.latitude) : undefined;
+            const parsedLng = form.longitude.trim() ? Number(form.longitude) : undefined;
+
             const input: HospitalInput = {
                 ...form,
                 district: form.district || null,
@@ -76,6 +85,8 @@ export function HospitalDialog({
                 website: form.website || null,
                 verified: form.verified || null,
                 isActive: hospital?.isActive ?? true,
+                latitude: Number.isFinite(parsedLat as number) ? parsedLat : undefined,
+                longitude: Number.isFinite(parsedLng as number) ? parsedLng : undefined,
             };
 
             if (hospital) {
@@ -176,6 +187,32 @@ export function HospitalDialog({
                                 value={form.verified}
                                 onChange={(e) => setForm({ ...form, verified: e.target.value })}
                             />
+                        </div>
+                        <div className="col-span-2 space-y-1.5">
+                            <Label>
+                                GPS coordinates{" "}
+                                <span className="font-normal text-muted-foreground">
+                                    (optional — leave blank to auto-fill from the address above)
+                                </span>
+                            </Label>
+                            <div className="grid grid-cols-2 gap-4">
+                                <Input
+                                    id="latitude"
+                                    type="number"
+                                    step="any"
+                                    placeholder="Latitude"
+                                    value={form.latitude}
+                                    onChange={(e) => setForm({ ...form, latitude: e.target.value })}
+                                />
+                                <Input
+                                    id="longitude"
+                                    type="number"
+                                    step="any"
+                                    placeholder="Longitude"
+                                    value={form.longitude}
+                                    onChange={(e) => setForm({ ...form, longitude: e.target.value })}
+                                />
+                            </div>
                         </div>
                     </div>
 

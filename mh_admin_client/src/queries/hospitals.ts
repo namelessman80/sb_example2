@@ -12,6 +12,10 @@ export interface AdminHospital {
     website: string | null;
     verified: string | null;
     isActive: boolean;
+    // Optional: leaving these out on create/update lets the server
+    // auto-geocode from the address instead.
+    latitude?: number | null;
+    longitude?: number | null;
 }
 
 export type HospitalInput = Omit<AdminHospital, "id">;

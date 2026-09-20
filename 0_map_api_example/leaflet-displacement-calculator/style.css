@@ -1,0 +1,124 @@
+/*
+  Same job as the Google Maps version's stylesheet:
+  purely visual, no map logic here.
+*/
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+/*
+  Leaflet ALSO needs an explicit size on the map container,
+  for the exact same reason Google Maps did - without a height,
+  the div collapses to 0px tall and the map is invisible.
+*/
+#map {
+  width: 100%;
+  /* aspect-ratio sets a fixed width:height ratio instead of a fixed
+     pixel height - as the box's width changes (e.g. on a narrower
+     screen), its height changes to match, always keeping this same
+     shape. 7 / 3 means "for every 7 units wide, 3 units tall" (a
+     3:7 vertical:horizontal ratio) - taller/more vertical than the
+     previous plain 500px height was on a typical wide screen. */
+  aspect-ratio: 7 / 3;
+  border: 1px solid #ccc;
+  /* Tells the browser the mouse cursor should look like a "pointer/hand"
+     when hovering the map, as a visual hint that it's clickable. */
+  cursor: pointer;
+}
+
+/* Simple styling so the coordinates readout stands out a bit. */
+#coords {
+  font-family: monospace;
+  background: #f4f4f4;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Lay the coordinate form's pieces out in a single row, wrapping
+   onto a new line if the window is too narrow to fit them all. */
+#coordinate-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#coordinate-form input {
+  width: 140px;
+  padding: 4px 6px;
+}
+
+#coordinate-form button {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+/* Validation messages show up in red so they're easy to notice. */
+#inputStatus,
+#displacementStatus {
+  color: #b00020;
+  font-weight: bold;
+}
+
+/* Lay the two fieldsets (User Location / Destination) side by side,
+   wrapping to stacked rows on a narrow screen. */
+.displacement-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.displacement-inputs fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.displacement-inputs input {
+  width: 130px;
+  padding: 4px 6px;
+}
+
+#calcButton {
+  padding: 6px 14px;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+/* The distance result is the main "answer" of this section, so make
+   it stand out clearly once it's filled in. */
+#distanceResult {
+  font-size: 1.1em;
+  font-weight: bold;
+  background: #eef6ff;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Small colored circle used for the permanent "User Location" /
+   "Destination" marker labels (see L.divIcon in script.js) - no
+   external image files needed. Also reused for the green hospital
+   dots from hospitals.js. */
+.marker-dot {
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
+}
+
+/* The hospital ranking list - numbered, with a little breathing room
+   between entries so the distances are easy to scan. */
+#hospitalRanking {
+  padding-left: 1.5em;
+}
+
+#hospitalRanking li {
+  margin-bottom: 4px;
+}

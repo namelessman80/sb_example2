@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+  This is the Leaflet + OpenStreetMap version of the same tutorial.
+
+  Big difference from the Google Maps version: NO API KEY NEEDED.
+  Leaflet is a free, open-source JavaScript library, and OpenStreetMap
+  is a free, open map-data project (like "Wikipedia, but for maps").
+  You don't need an account, a credit card, or a key to use either one.
+
+  Everything else about the STRUCTURE of the page is the same idea:
+    1. An empty <div> box for the map to be drawn into
+    2. CSS for how it looks
+    3. A library script that gives us map-drawing tools
+    4. Our own script that uses those tools
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaflet Maps 101 - Simple Example (No API Key)</title>
+
+  <!--
+    Leaflet's own CSS file. This is required - without it, the map
+    will look broken (tiles misaligned, zoom buttons unstyled, etc).
+    This is loaded from a CDN (a public file server), not from Google.
+  -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <!-- Our own CSS file, for the rest of the page's look. -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>My First Leaflet Map (No API Key Needed)</h1>
+  <p>
+    The map starts zoomed out to show all of China, with a marker on
+    Shenyang. <strong>Click anywhere on the map</strong> to move the marker
+    there - this is the same building block a "pick this hospital's
+    location on the map" feature would use later.
+  </p>
+
+  <!--
+    ============================================================
+    COORDINATE INPUT FORM
+    ============================================================
+    Two plain text boxes and a button. Nothing map-specific here -
+    these are ordinary HTML form elements. script.js reads whatever
+    text is typed into them when the button is clicked.
+
+    <label for="latInput"> is linked to <input id="latInput"> by
+    matching for/id - this lets clicking the label text focus the
+    input, and helps screen readers announce what the box is for.
+  -->
+  <div id="coordinate-form">
+    <label for="latInput">Latitude:</label>
+    <input type="text" id="latInput" placeholder="e.g. 41.8057" />
+
+    <label for="lngInput">Longitude:</label>
+    <input type="text" id="lngInput" placeholder="e.g. 123.4315" />
+
+    <button id="goButton">Go to Location</button>
+  </div>
+
+  <!--
+    Empty placeholder for validation messages (e.g. "not a valid
+    latitude") - script.js fills this in only when something's wrong.
+  -->
+  <p id="inputStatus"></p>
+
+  <hr />
+
+  <!--
+    ============================================================
+    DISPLACEMENT CALCULATOR
+    ============================================================
+    This section is really a physics idea wearing a map costume:
+    initial position -> final position -> displacement vector ->
+    magnitude of displacement. "User Location" is the initial
+    position, "Destination" is the final position, the line drawn
+    between them is the displacement vector, and the distance in km
+    we calculate is that vector's magnitude - the straight-line
+    ("as the crow flies") distance between the two points, NOT a
+    driving route along roads.
+  -->
+  <h2>Displacement Calculator</h2>
+  <p>
+    Enter two locations below and click the button to see the
+    straight-line displacement between them - the same "initial
+    position to final position" idea as a displacement vector in
+    physics, just measured in real-world kilometers on a curved
+    surface (the Earth) instead of a flat diagram.
+  </p>
+
+  <div class="displacement-inputs">
+    <!--
+      <fieldset> groups related form fields together, and <legend>
+      gives that group a visible title - purely for organizing the
+      two coordinate pairs so it's obvious which is which.
+    -->
+    <fieldset>
+      <legend>User Location (initial position)</legend>
+      <label for="userLatInput">Latitude:</label>
+      <input type="text" id="userLatInput" placeholder="e.g. 41.8057" />
+
+      <label for="userLngInput">Longitude:</label>
+      <input type="text" id="userLngInput" placeholder="e.g. 123.4315" />
+    </fieldset>
+
+    <fieldset>
+      <legend>Destination (final position)</legend>
+      <label for="destLatInput">Latitude:</label>
+      <input type="text" id="destLatInput" placeholder="e.g. 39.9042" />
+
+      <label for="destLngInput">Longitude:</label>
+      <input type="text" id="destLngInput" placeholder="e.g. 116.4074" />
+    </fieldset>
+  </div>
+
+  <button id="calcButton">Calculate Displacement</button>
+
+  <!-- Validation errors for this section show up here. -->
+  <p id="displacementStatus"></p>
+
+  <!-- The actual displacement magnitude result, once calculated. -->
+  <p id="distanceResult"></p>
+
+  <!--
+    Same idea as before: an empty box that JavaScript will fill in.
+    Leaflet ALSO requires this div to have a set width/height in CSS,
+    just like Google Maps did - see style.css.
+  -->
+  <div id="map"></div>
+
+  <!--
+    This paragraph is just a plain HTML element with no content yet.
+    script.js will fill in its text every time you click the map,
+    so you can see the exact coordinates without needing to open the
+    popup. id="coords" is how JavaScript finds this exact element.
+  -->
+  <p id="coords">Click anywhere on the map above to see its coordinates here.</p>
+
+  <!--
+    A second, separate placeholder. Coordinates and the human-readable
+    address are TWO different pieces of information that come from
+    TWO different sources (the click itself gives us coordinates; a
+    reverse-geocoding lookup gives us the address) - see script.js.
+  -->
+  <p id="address"></p>
+
+  <hr />
+
+  <!--
+    ============================================================
+    HOSPITAL RANKING BY PROXIMITY
+    ============================================================
+    Green dots on the map above are the Shenyang hospitals from
+    hospitals.js. Every time the marker above moves (by clicking the
+    map or using the coordinate box), this list re-sorts itself to
+    show every hospital nearest-first, using the SAME haversine
+    distance math as the Displacement Calculator.
+  -->
+  <h2>Hospitals Ranked by Proximity</h2>
+  <p>
+    This list re-ranks itself every time you move the marker above
+    (by clicking the map or typing coordinates) - closest hospital
+    first.
+  </p>
+  <ol id="hospitalRanking"></ol>
+
+  <!--
+    ============================================================
+    NOTICE: There is no API key anywhere on this page.
+    ============================================================
+    This script tag just loads Leaflet's map-drawing library, the
+    same way Google's script tag loaded Google's library. The only
+    difference is Leaflet doesn't require a key to unlock it.
+  -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!--
+    hospitals.js is loaded BEFORE script.js - see the README/chat
+    explanation for why the order matters. It just declares a
+    `hospitals` variable; script.js (loaded next) is what actually
+    reads and uses it.
+  -->
+  <script src="hospitals.js"></script>
+
+  <!--
+    Our own code, loaded last so the <div id="map">, Leaflet itself,
+    and the `hospitals` array from hospitals.js all already exist by
+    the time it runs.
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>
